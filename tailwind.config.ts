@@ -57,6 +57,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          glow: "hsl(var(--gold-glow))",
+        },
+        chip: {
+          red: "hsl(var(--chip-red))",
+          blue: "hsl(var(--chip-blue))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
