@@ -21,11 +21,11 @@ const CameraController = ({ gamePhase }: { gamePhase: string }) => {
 
     if (gamePhase === 'playing') {
       // Zoom to player's cards
-      targetPosition = new THREE.Vector3(0, 4, 4);
-      targetLookAt = new THREE.Vector3(0, 0, 2);
+      targetPosition = new THREE.Vector3(0, 5, 5.5);
+      targetLookAt = new THREE.Vector3(0, 0, 2.5);
     } else {
       // Overview of entire table
-      targetPosition = new THREE.Vector3(0, 8, 0.1);
+      targetPosition = new THREE.Vector3(0, 10, 0.5);
       targetLookAt = new THREE.Vector3(0, 0, 0);
     }
 
@@ -39,7 +39,7 @@ const CameraController = ({ gamePhase }: { gamePhase: string }) => {
     cameraRef.current.lookAt(currentLookAt);
   });
 
-  return <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 8, 0.1]} fov={60} />;
+  return <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 10, 0.5]} fov={65} />;
 };
 
 const Index = () => {
@@ -57,32 +57,32 @@ const Index = () => {
   } = useBlackjackGame();
 
   return (
-    <div className="min-h-screen felt-texture flex flex-col">
+    <div className="h-screen felt-texture flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="p-4 border-b border-border/30 backdrop-blur-sm">
+      <header className="p-3 border-b border-border/30 backdrop-blur-sm flex-shrink-0">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold gold-text">Blackjack Master</h1>
-            <p className="text-xs text-muted-foreground">Learn card counting with your AI angel</p>
+            <h1 className="text-xl font-bold gold-text">Blackjack Master</h1>
+            <p className="text-xs text-muted-foreground">Learn card counting with AI</p>
           </div>
           <div className="flex gap-6 items-center">
             <div className="text-right">
               <p className="text-xs text-muted-foreground">Balance</p>
-              <p className="text-xl font-bold gold-text">${balance}</p>
+              <p className="text-lg font-bold gold-text">${balance}</p>
             </div>
             {currentBet > 0 && (
               <div className="text-right">
                 <p className="text-xs text-muted-foreground">Current Bet</p>
-                <p className="text-lg font-bold text-primary">${currentBet}</p>
+                <p className="text-base font-bold text-primary">${currentBet}</p>
               </div>
             )}
           </div>
         </div>
       </header>
 
-      <div className="flex-1 flex flex-col lg:flex-row gap-4 p-4 max-w-7xl mx-auto w-full">
+      <div className="flex-1 flex gap-3 p-3 max-w-7xl mx-auto w-full min-h-0">
         {/* 3D Table */}
-        <div className="flex-1 min-h-[600px] lg:min-h-0 rounded-xl overflow-hidden shadow-2xl border-2 border-primary/20">
+        <div className="flex-1 rounded-xl overflow-hidden shadow-2xl border-2 border-primary/20">
           <Canvas shadows>
             <CameraController gamePhase={gamePhase} />
             <BlackjackTable
@@ -94,26 +94,26 @@ const Index = () => {
         </div>
 
         {/* Side Panel */}
-        <div className="w-full lg:w-80 space-y-4">
+        <div className="w-72 space-y-3 flex flex-col overflow-y-auto">
           {/* Card Count Info */}
-          <Card className="p-3 bg-card/80 backdrop-blur-sm border-primary/30">
+          <Card className="p-3 bg-card/80 backdrop-blur-sm border-primary/30 flex-shrink-0">
             <h3 className="text-xs font-semibold text-muted-foreground mb-2">Card Counting</h3>
             <div className="grid grid-cols-3 gap-2">
               <div className="text-center">
                 <p className="text-xs text-muted-foreground">Running</p>
-                <p className="text-xl font-bold text-foreground">
+                <p className="text-lg font-bold text-foreground">
                   {runningCount > 0 ? '+' : ''}{runningCount}
                 </p>
               </div>
               <div className="text-center">
                 <p className="text-xs text-muted-foreground">True Count</p>
-                <p className="text-xl font-bold text-primary">
+                <p className="text-lg font-bold text-primary">
                   {trueCount > 0 ? '+' : ''}{trueCount}
                 </p>
               </div>
               <div className="text-center">
                 <p className="text-xs text-muted-foreground">Decks Left</p>
-                <p className="text-xl font-bold text-accent">
+                <p className="text-lg font-bold text-accent">
                   {decksRemaining.toFixed(1)}
                 </p>
               </div>
@@ -121,27 +121,29 @@ const Index = () => {
           </Card>
 
           {/* Message/Status */}
-          <Card className="p-3 bg-card/80 backdrop-blur-sm border-primary/30">
-            <p className="text-center text-base font-semibold text-foreground">
+          <Card className="p-3 bg-card/80 backdrop-blur-sm border-primary/30 flex-shrink-0">
+            <p className="text-center text-sm font-semibold text-foreground">
               {message}
             </p>
             {gamePhase === 'playing' && playerHands[0] && (
-              <p className="text-center text-sm text-muted-foreground mt-1">
+              <p className="text-center text-xs text-muted-foreground mt-1">
                 Your hand: {playerHands[0].value} {playerHands[0].isSoft && '(soft)'}
               </p>
             )}
             {gamePhase === 'dealer' && dealerHand && (
-              <p className="text-center text-sm text-muted-foreground mt-1">
+              <p className="text-center text-xs text-muted-foreground mt-1">
                 Dealer's hand: {dealerHand.value}
               </p>
             )}
           </Card>
 
           {/* Agent Panel */}
-          <AgentPanel />
+          <div className="flex-shrink-0">
+            <AgentPanel />
+          </div>
 
           {/* Controls */}
-          <div className="space-y-4">
+          <div className="space-y-3 flex-shrink-0">
             <BettingPanel />
             <GameControls />
             

@@ -13,9 +13,9 @@ interface BlackjackTableProps {
 export const BlackjackTable = ({ playerHands, dealerHand, gamePhase }: BlackjackTableProps) => {
   return (
     <>
-      {/* Table surface - Oval shaped */}
+      {/* Table surface - Larger oval */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <circleGeometry args={[5, 64]} />
+        <circleGeometry args={[6.5, 64]} />
         <meshStandardMaterial
           color="#0d4d2a"
           roughness={0.7}
@@ -25,7 +25,7 @@ export const BlackjackTable = ({ playerHands, dealerHand, gamePhase }: Blackjack
       
       {/* Table edge */}
       <mesh position={[0, -0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[5, 5.3, 64]} />
+        <ringGeometry args={[6.5, 6.9, 64]} />
         <meshStandardMaterial
           color="#6b4423"
           roughness={0.5}
