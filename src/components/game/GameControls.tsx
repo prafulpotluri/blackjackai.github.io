@@ -11,55 +11,42 @@ export const GameControls = () => {
   const canDouble = playerHands[0]?.cards.length === 2 && balance >= currentBet;
   
   return (
-    <div className="flex gap-3 justify-center flex-wrap">
+    <div className="flex gap-2 justify-center flex-wrap p-3 bg-gradient-to-br from-card/95 to-card/80 rounded-xl border-2 border-primary/40 shadow-xl">
       <Button
         onClick={hit}
-        variant="default"
         size="lg"
-        className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
+        className="flex-1 min-w-[100px] bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-bold shadow-xl hover:shadow-2xl transition-all text-base h-14"
       >
-        Hit
+        HIT
       </Button>
       
       <Button
         onClick={stand}
-        variant="secondary"
         size="lg"
-        className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg hover:shadow-xl transition-all"
+        className="flex-1 min-w-[100px] bg-gradient-to-br from-destructive to-destructive/80 hover:from-destructive/90 hover:to-destructive/70 text-white font-bold shadow-xl hover:shadow-2xl transition-all text-base h-14"
       >
-        Stand
+        STAND
       </Button>
       
       {canDouble && (
         <Button
           onClick={double}
-          variant="outline"
           size="lg"
-          className="border-gold text-gold hover:bg-gold/10 shadow-lg hover:shadow-xl transition-all"
+          className="flex-1 min-w-[100px] bg-gradient-to-br from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-black font-bold shadow-xl hover:shadow-2xl transition-all text-base h-14"
         >
-          Double Down
+          DOUBLE
         </Button>
       )}
       
       {canSplit && (
         <Button
           onClick={split}
-          variant="outline"
           size="lg"
-          className="border-accent text-accent hover:bg-accent/10 shadow-lg hover:shadow-xl transition-all"
+          className="flex-1 min-w-[100px] bg-gradient-to-br from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-white font-bold shadow-xl hover:shadow-2xl transition-all text-base h-14"
         >
-          Split
+          SPLIT
         </Button>
       )}
-      
-      <Button
-        onClick={surrender}
-        variant="destructive"
-        size="lg"
-        className="shadow-lg hover:shadow-xl transition-all"
-      >
-        Surrender
-      </Button>
     </div>
   );
 };

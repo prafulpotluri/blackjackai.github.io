@@ -13,23 +13,36 @@ interface BlackjackTableProps {
 export const BlackjackTable = ({ playerHands, dealerHand, gamePhase }: BlackjackTableProps) => {
   return (
     <>
-      {/* Table surface - Larger oval */}
+      {/* Premium felt surface */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <circleGeometry args={[6.5, 64]} />
+        <circleGeometry args={[7, 64]} />
         <meshStandardMaterial
-          color="#0d4d2a"
-          roughness={0.7}
-          metalness={0.1}
+          color="#1565c0"
+          roughness={0.9}
+          metalness={0.0}
+          envMapIntensity={0.3}
         />
       </mesh>
       
-      {/* Table edge */}
-      <mesh position={[0, -0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[6.5, 6.9, 64]} />
+      {/* Luxury wood rail */}
+      <mesh position={[0, -0.08, 0]} rotation={[-Math.PI / 2, 0, 0]} castShadow>
+        <ringGeometry args={[7, 7.5, 64]} />
         <meshStandardMaterial
-          color="#6b4423"
-          roughness={0.5}
-          metalness={0.2}
+          color="#4a2c1a"
+          roughness={0.4}
+          metalness={0.3}
+        />
+      </mesh>
+      
+      {/* Inner gold trim */}
+      <mesh position={[0, -0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[6.95, 7.05, 64]} />
+        <meshStandardMaterial
+          color="#d4af37"
+          roughness={0.2}
+          metalness={0.8}
+          emissive="#d4af37"
+          emissiveIntensity={0.3}
         />
       </mesh>
 
@@ -127,25 +140,43 @@ export const BlackjackTable = ({ playerHands, dealerHand, gamePhase }: Blackjack
       {/* Agent Robot */}
       <AgentRobot />
       
-      {/* Lighting - Better illumination */}
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[0, 10, 0]} intensity={0.8} castShadow />
-      <pointLight position={[0, 4, 0]} intensity={0.5} />
+      {/* Premium casino lighting */}
+      <ambientLight intensity={0.4} color="#ffffff" />
+      <directionalLight position={[0, 15, 0]} intensity={1.2} castShadow color="#ffffff" />
+      <pointLight position={[0, 5, 0]} intensity={1} color="#fff5e1" />
       <spotLight
-        position={[0, 6, -3]}
-        angle={0.6}
-        penumbra={0.5}
-        intensity={0.7}
+        position={[0, 8, -4]}
+        angle={0.7}
+        penumbra={0.6}
+        intensity={1.5}
         target-position={[0, 0, -3]}
         castShadow
+        color="#ffffff"
       />
       <spotLight
-        position={[0, 6, 3]}
-        angle={0.6}
-        penumbra={0.5}
-        intensity={0.7}
+        position={[0, 8, 4]}
+        angle={0.7}
+        penumbra={0.6}
+        intensity={1.5}
         target-position={[0, 0, 3]}
         castShadow
+        color="#ffffff"
+      />
+      <spotLight
+        position={[-5, 6, 0]}
+        angle={0.5}
+        penumbra={0.7}
+        intensity={0.8}
+        target-position={[-2.5, 0, 2]}
+        color="#d4af37"
+      />
+      <spotLight
+        position={[5, 6, 0]}
+        angle={0.5}
+        penumbra={0.7}
+        intensity={0.8}
+        target-position={[2.5, 0, 2]}
+        color="#d4af37"
       />
     </>
   );

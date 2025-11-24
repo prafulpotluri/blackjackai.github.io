@@ -182,6 +182,11 @@ export const useBlackjackGame = create<BlackjackStore>((set, get) => ({
         gamePhase: 'finished',
         message: result
       });
+      
+      // Auto-continue to betting after 3 seconds
+      setTimeout(() => {
+        get().resetGame();
+      }, 3000);
     }, 1500);
   },
 

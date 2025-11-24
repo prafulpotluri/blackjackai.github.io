@@ -59,11 +59,21 @@ export default {
         },
         gold: {
           DEFAULT: "hsl(var(--gold))",
-          glow: "hsl(var(--gold-glow))",
+          dark: "hsl(var(--gold-dark))",
+        },
+        wood: {
+          DEFAULT: "hsl(var(--wood))",
+          dark: "hsl(var(--wood-dark))",
+        },
+        felt: {
+          green: "hsl(var(--felt-green))",
+          blue: "hsl(var(--felt-blue))",
         },
         chip: {
           red: "hsl(var(--chip-red))",
           blue: "hsl(var(--chip-blue))",
+          green: "hsl(var(--chip-green))",
+          black: "hsl(var(--chip-black))",
         },
       },
       borderRadius: {

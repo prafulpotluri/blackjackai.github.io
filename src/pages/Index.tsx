@@ -58,32 +58,32 @@ const Index = () => {
 
   return (
     <div className="h-screen felt-texture flex flex-col overflow-hidden">
-      {/* Header */}
-      <header className="p-3 border-b border-border/30 backdrop-blur-sm flex-shrink-0">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+      {/* Premium Header */}
+      <header className="wood-grain p-4 border-b-4 border-gold/30 flex-shrink-0 shadow-lg">
+        <div className="max-w-[1800px] mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-xl font-bold gold-text">Blackjack Master</h1>
-            <p className="text-xs text-muted-foreground">Learn card counting with AI</p>
+            <h1 className="text-3xl font-bold gold-text tracking-wider">BLACKJACK</h1>
+            <p className="text-sm text-gold/80 font-semibold">Premium Casino Experience</p>
           </div>
-          <div className="flex gap-6 items-center">
-            <div className="text-right">
-              <p className="text-xs text-muted-foreground">Balance</p>
-              <p className="text-lg font-bold gold-text">${balance}</p>
+          <div className="flex gap-8 items-center">
+            <div className="text-right bg-card/50 px-6 py-3 rounded-lg border-2 border-gold/40">
+              <p className="text-xs text-gold uppercase tracking-wide font-semibold">Balance</p>
+              <p className="text-2xl font-bold gold-text">${balance}</p>
             </div>
             {currentBet > 0 && (
-              <div className="text-right">
-                <p className="text-xs text-muted-foreground">Current Bet</p>
-                <p className="text-base font-bold text-primary">${currentBet}</p>
+              <div className="text-right bg-primary/20 px-6 py-3 rounded-lg border-2 border-primary/60">
+                <p className="text-xs text-primary uppercase tracking-wide font-semibold">Bet</p>
+                <p className="text-2xl font-bold text-primary">${currentBet}</p>
               </div>
             )}
           </div>
         </div>
       </header>
 
-      <div className="flex-1 flex gap-3 p-3 max-w-7xl mx-auto w-full min-h-0">
-        {/* 3D Table */}
-        <div className="flex-1 rounded-xl overflow-hidden shadow-2xl border-2 border-primary/20">
-          <Canvas shadows>
+      <div className="flex-1 flex gap-4 p-4 max-w-[1800px] mx-auto w-full min-h-0">
+        {/* 3D Table - Much Larger */}
+        <div className="flex-1 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)] border-4 border-wood casino-glow">
+          <Canvas shadows gl={{ antialias: true, alpha: false }}>
             <CameraController gamePhase={gamePhase} />
             <BlackjackTable
               playerHands={playerHands}
@@ -93,27 +93,27 @@ const Index = () => {
           </Canvas>
         </div>
 
-        {/* Side Panel */}
-        <div className="w-72 space-y-3 flex flex-col overflow-y-auto">
+        {/* Side Panel - Compact */}
+        <div className="w-80 space-y-3 flex flex-col overflow-y-auto">
           {/* Card Count Info */}
-          <Card className="p-3 bg-card/80 backdrop-blur-sm border-primary/30 flex-shrink-0">
-            <h3 className="text-xs font-semibold text-muted-foreground mb-2">Card Counting</h3>
-            <div className="grid grid-cols-3 gap-2">
-              <div className="text-center">
-                <p className="text-xs text-muted-foreground">Running</p>
-                <p className="text-lg font-bold text-foreground">
+          <Card className="p-4 bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md border-2 border-gold/30 shadow-xl flex-shrink-0">
+            <h3 className="text-sm font-bold text-gold uppercase tracking-wide mb-3">Card Counting</h3>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="text-center bg-background/40 rounded-lg p-2">
+                <p className="text-xs text-muted-foreground uppercase">Running</p>
+                <p className="text-2xl font-bold text-foreground">
                   {runningCount > 0 ? '+' : ''}{runningCount}
                 </p>
               </div>
-              <div className="text-center">
-                <p className="text-xs text-muted-foreground">True Count</p>
-                <p className="text-lg font-bold text-primary">
+              <div className="text-center bg-primary/10 rounded-lg p-2">
+                <p className="text-xs text-primary uppercase">True</p>
+                <p className="text-2xl font-bold text-primary">
                   {trueCount > 0 ? '+' : ''}{trueCount}
                 </p>
               </div>
-              <div className="text-center">
-                <p className="text-xs text-muted-foreground">Decks Left</p>
-                <p className="text-lg font-bold text-accent">
+              <div className="text-center bg-accent/10 rounded-lg p-2">
+                <p className="text-xs text-accent uppercase">Decks</p>
+                <p className="text-2xl font-bold text-accent">
                   {decksRemaining.toFixed(1)}
                 </p>
               </div>
@@ -121,18 +121,18 @@ const Index = () => {
           </Card>
 
           {/* Message/Status */}
-          <Card className="p-3 bg-card/80 backdrop-blur-sm border-primary/30 flex-shrink-0">
-            <p className="text-center text-sm font-semibold text-foreground">
+          <Card className="p-4 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-md border-2 border-primary/40 shadow-xl flex-shrink-0">
+            <p className="text-center text-lg font-bold text-foreground">
               {message}
             </p>
             {gamePhase === 'playing' && playerHands[0] && (
-              <p className="text-center text-xs text-muted-foreground mt-1">
-                Your hand: {playerHands[0].value} {playerHands[0].isSoft && '(soft)'}
+              <p className="text-center text-sm text-muted-foreground mt-2">
+                Your hand: <span className="font-bold text-primary">{playerHands[0].value}</span> {playerHands[0].isSoft && <span className="text-xs">(soft)</span>}
               </p>
             )}
             {gamePhase === 'dealer' && dealerHand && (
-              <p className="text-center text-xs text-muted-foreground mt-1">
-                Dealer's hand: {dealerHand.value}
+              <p className="text-center text-sm text-muted-foreground mt-2">
+                Dealer: <span className="font-bold text-destructive">{dealerHand.value}</span>
               </p>
             )}
           </Card>
@@ -150,7 +150,7 @@ const Index = () => {
             {gamePhase === 'finished' && (
               <Button
                 onClick={resetGame}
-                className="w-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+                className="w-full bg-gradient-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-black font-bold shadow-xl hover:shadow-2xl transition-all text-lg py-6"
                 size="lg"
               >
                 New Round
