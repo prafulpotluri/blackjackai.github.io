@@ -263,59 +263,18 @@ export const useBlackjackGame = create<BlackjackStore>((set, get) => ({
     const canSplit = checkCanSplit(playerHand);
     const canDouble = canDoubleDown(playerHand, state.balance, state.currentBet);
     
-    const strategy = getBasicStrategy(playerHand, dealerUpCard, canSplit, canDouble);
-    const action = strategy.action;
-    const winProbability = calculateWinProbability(
+    // Use pure algorithmic recommendation
+    const { getAgentRecommendation } = await import('@/lib/blackjack/agentAlgorithm');
+    
+    return getAgentRecommendation(
       playerHand,
       dealerUpCard,
       state.trueCount,
-      action
+      canSplit,
+      canDouble,
+      state.balance,
+      state.currentBet
     );
-    
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/get-agent-advice`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`
-          },
-          body: JSON.stringify({
-            playerHand: {
-              cards: playerHand.cards,
-              value: playerHand.value,
-              isSoft: playerHand.isSoft
-            },
-            dealerUpCard,
-            trueCount: state.trueCount,
-            recommendedAction: action,
-            winProbability,
-            balance: state.balance,
-            currentBet: state.currentBet,
-            canSplit,
-            canDouble
-          })
-        }
-      );
-      
-      const data = await response.json();
-      
-      return {
-        action,
-        winProbability,
-        reason: `Based on basic strategy and count of ${state.trueCount > 0 ? '+' : ''}${state.trueCount}`,
-        explanation: data.explanation
-      };
-    } catch (error) {
-      console.error('Failed to get agent advice:', error);
-      return {
-        action,
-        winProbability,
-        reason: `Basic strategy says ${action}`,
-        explanation: 'I recommend this move based on optimal strategy!'
-      };
-    }
   },
 
   resetGame: () => {
