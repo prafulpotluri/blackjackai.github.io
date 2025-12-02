@@ -30,10 +30,12 @@ export interface GameState {
 }
 
 export interface AgentAdvice {
-  action: 'hit' | 'stand' | 'double' | 'split' | 'surrender';
+  action: 'hit' | 'stand' | 'double' | 'split';
   winProbability: number;
   reason: string;
   explanation: string;
+  cardCountingLesson: string;
+  strategyTip: string;
 }
 
 export interface BasicStrategyDecision {

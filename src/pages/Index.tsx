@@ -4,6 +4,7 @@ import { BlackjackTable } from '@/components/game/BlackjackTable';
 import { GameControls } from '@/components/game/GameControls';
 import { BettingPanel } from '@/components/game/BettingPanel';
 import { AgentPanel } from '@/components/game/AgentPanel';
+import { CardCountingPanel } from '@/components/game/CardCountingPanel';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useBlackjackGame } from '@/hooks/useBlackjackGame';
@@ -50,9 +51,6 @@ const Index = () => {
     currentBet,
     gamePhase,
     message,
-    runningCount,
-    trueCount,
-    decksRemaining,
     resetGame
   } = useBlackjackGame();
 
@@ -94,31 +92,9 @@ const Index = () => {
         </div>
 
         {/* Side Panel - Compact */}
-        <div className="w-80 space-y-3 flex flex-col overflow-y-auto">
-          {/* Card Count Info */}
-          <Card className="p-4 bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md border-2 border-gold/30 shadow-xl flex-shrink-0">
-            <h3 className="text-sm font-bold text-gold uppercase tracking-wide mb-3">Card Counting</h3>
-            <div className="grid grid-cols-3 gap-3">
-              <div className="text-center bg-background/40 rounded-lg p-2">
-                <p className="text-xs text-muted-foreground uppercase">Running</p>
-                <p className="text-2xl font-bold text-foreground">
-                  {runningCount > 0 ? '+' : ''}{runningCount}
-                </p>
-              </div>
-              <div className="text-center bg-primary/10 rounded-lg p-2">
-                <p className="text-xs text-primary uppercase">True</p>
-                <p className="text-2xl font-bold text-primary">
-                  {trueCount > 0 ? '+' : ''}{trueCount}
-                </p>
-              </div>
-              <div className="text-center bg-accent/10 rounded-lg p-2">
-                <p className="text-xs text-accent uppercase">Decks</p>
-                <p className="text-2xl font-bold text-accent">
-                  {decksRemaining.toFixed(1)}
-                </p>
-              </div>
-            </div>
-          </Card>
+        <div className="w-96 space-y-3 flex flex-col overflow-y-auto">
+          {/* Card Count Info - Educational */}
+          <CardCountingPanel />
 
           {/* Message/Status */}
           <Card className="p-4 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-md border-2 border-primary/40 shadow-xl flex-shrink-0">
