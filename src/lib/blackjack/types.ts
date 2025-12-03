@@ -36,6 +36,7 @@ export interface AgentAdvice {
   explanation: string;
   cardCountingLesson: string;
   strategyTip: string;
+  historicalInsight?: string;
 }
 
 export interface BasicStrategyDecision {

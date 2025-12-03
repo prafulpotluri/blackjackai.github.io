@@ -14,7 +14,152 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      action_outcomes: {
+        Row: {
+          action_taken: string
+          dealer_up_card: number
+          id: string
+          is_pair: boolean | null
+          is_soft: boolean | null
+          player_value: number
+          times_lost: number | null
+          times_played: number | null
+          times_push: number | null
+          times_won: number | null
+          total_profit: number | null
+          true_count_range: string
+          win_rate: number | null
+        }
+        Insert: {
+          action_taken: string
+          dealer_up_card: number
+          id?: string
+          is_pair?: boolean | null
+          is_soft?: boolean | null
+          player_value: number
+          times_lost?: number | null
+          times_played?: number | null
+          times_push?: number | null
+          times_won?: number | null
+          total_profit?: number | null
+          true_count_range: string
+          win_rate?: number | null
+        }
+        Update: {
+          action_taken?: string
+          dealer_up_card?: number
+          id?: string
+          is_pair?: boolean | null
+          is_soft?: boolean | null
+          player_value?: number
+          times_lost?: number | null
+          times_played?: number | null
+          times_push?: number | null
+          times_won?: number | null
+          total_profit?: number | null
+          true_count_range?: string
+          win_rate?: number | null
+        }
+        Relationships: []
+      }
+      game_hands: {
+        Row: {
+          actions_taken: Json
+          bet_amount: number
+          created_at: string
+          dealer_final_cards: Json | null
+          dealer_up_card: number
+          dealer_value: number | null
+          final_result: string | null
+          id: string
+          is_pair: boolean | null
+          is_soft: boolean | null
+          pair_rank: string | null
+          player_cards: Json
+          player_value: number
+          profit_loss: number | null
+          recommended_action: string | null
+          running_count: number
+          session_id: string | null
+          true_count: number
+          was_blackjack: boolean | null
+        }
+        Insert: {
+          actions_taken?: Json
+          bet_amount: number
+          created_at?: string
+          dealer_final_cards?: Json | null
+          dealer_up_card: number
+          dealer_value?: number | null
+          final_result?: string | null
+          id?: string
+          is_pair?: boolean | null
+          is_soft?: boolean | null
+          pair_rank?: string | null
+          player_cards: Json
+          player_value: number
+          profit_loss?: number | null
+          recommended_action?: string | null
+          running_count: number
+          session_id?: string | null
+          true_count: number
+          was_blackjack?: boolean | null
+        }
+        Update: {
+          actions_taken?: Json
+          bet_amount?: number
+          created_at?: string
+          dealer_final_cards?: Json | null
+          dealer_up_card?: number
+          dealer_value?: number | null
+          final_result?: string | null
+          id?: string
+          is_pair?: boolean | null
+          is_soft?: boolean | null
+          pair_rank?: string | null
+          player_cards?: Json
+          player_value?: number
+          profit_loss?: number | null
+          recommended_action?: string | null
+          running_count?: number
+          session_id?: string | null
+          true_count?: number
+          was_blackjack?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "game_hands_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "game_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      game_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          session_data: Json | null
+          total_hands: number | null
+          total_profit: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          session_data?: Json | null
+          total_hands?: number | null
+          total_profit?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          session_data?: Json | null
+          total_hands?: number | null
+          total_profit?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
