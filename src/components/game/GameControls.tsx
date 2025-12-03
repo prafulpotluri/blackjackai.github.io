@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { useBlackjackGame } from '@/hooks/useBlackjackGame';
 
 export const GameControls = () => {
-  const { hit, stand, double, split, surrender, balance, currentBet, gamePhase, playerHands } = useBlackjackGame();
+  const { hit, stand, double, split, balance, currentBet, gamePhase, playerHands } = useBlackjackGame();
   
   if (gamePhase !== 'playing') return null;
   
